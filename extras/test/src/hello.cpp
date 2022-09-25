@@ -1,9 +1,16 @@
 #include <ArduinoJson.h>
 #include <stdio.h>
 
-class Dynamic {
-  template <class T>
-  virtual size_t writeTo(T writer) = 0;
+#include <ArduinoJson/Serialization/CountingDecorator.hpp>
+
+
+class Base64 :public Dynamic {
+
+  virtual size_t writeJson(Dynamic::writeFunc writer){
+    char data[] = "test";
+    writer(data,4);
+    return 4;
+  }
 };
 
 
@@ -13,7 +20,7 @@ int main() {
   output[0] = '\0';
   DynamicJsonDocument doc(1024);
   doc["sensor"] = "gps";
-  doc["image"] = Dynamic();
+  doc["image"] = Base64();
 
   //serializeJson(doc, output);
 
