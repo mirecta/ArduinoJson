@@ -4,15 +4,18 @@
 
 #pragma once
 
+#include <functional>
 #include <ArduinoJson/Serialization/CountingDecorator.hpp>
+
 
 namespace ARDUINOJSON_NAMESPACE {
 
 
 class Dynamic {
   public:
-    typedef void (*writeFunc)(const char* s, size_t n);
+    
+    typedef std::function<void (const char* s, size_t n)> WriteFunc;
 
-    virtual size_t writeJson(writeFunc writer) = 0;
+    virtual size_t writeJson(WriteFunc writer){};
 };
 };  // namespace ARDUINOJSON_NAMESPACE

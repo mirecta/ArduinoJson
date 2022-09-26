@@ -6,7 +6,7 @@
 
 class Base64 :public Dynamic {
 
-  virtual size_t writeJson(Dynamic::writeFunc writer){
+  virtual size_t writeJson(Dynamic::WriteFunc writer){
     char data[] = "test";
     writer(data,4);
     return 4;
