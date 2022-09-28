@@ -98,6 +98,11 @@ class JsonSerializer : public Visitor<size_t> {
     return bytesWritten();
   }
 
+  size_t visitDynamic(DynamicData *dynamic) {
+    _formatter.writeDynamic(dynamic);
+    return bytesWritten();
+  }
+
  protected:
   size_t bytesWritten() const {
     return _formatter.bytesWritten();

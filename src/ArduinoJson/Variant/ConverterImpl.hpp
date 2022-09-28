@@ -7,7 +7,6 @@
 #include <ArduinoJson/Json/JsonSerializer.hpp>
 #include <ArduinoJson/Variant/VariantFunctions.hpp>
 #include <ArduinoJson/Variant/VariantRef.hpp>
-#include <ArduinoJson/Misc/Dynamic.hpp>
 
 namespace ARDUINOJSON_NAMESPACE {
 
@@ -152,19 +151,18 @@ struct Converter<String> : private VariantAttorney {
   }
 };
 
-
 template <typename T>
-struct Converter<T, typename enable_if<is_base_of< Dynamic, T>::value>::type>
+struct Converter<T, typename enable_if<is_base_of<DynamicData, T>::value>::type>
     : private VariantAttorney {
   static void toJson(T src, VariantRef dst) {
     VariantData* data = getData(dst);
-    if (data){}
-      
+    if (data){
+      data->setDynamic(&src);
+    }
   }
 
-  static T fromJson(VariantConstRef src) {
-    const VariantData* data = getData(src);
-    return Dynamic();
+  T* fromJson(VariantConstRef src) {
+    return 0;
   }
 
   static bool checkJson(VariantConstRef src) {

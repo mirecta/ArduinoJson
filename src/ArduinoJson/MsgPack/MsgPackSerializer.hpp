@@ -83,6 +83,29 @@ class MsgPackSerializer : public Visitor<size_t> {
     return visitString(value, strlen(value));
   }
 
+  size_t visitDynamic(DynamicData *dynamic){
+    size_t n = 0;
+    if(dynamic){
+      n = dynamic->sizeRaw();
+    }
+    if (n < 0x20) {
+      writeByte(uint8_t(0xA0 + n));
+    } else if (n < 0x100) {
+      writeByte(0xD9);
+      writeInteger(uint8_t(n));
+    } else if (n < 0x10000) {
+      writeByte(0xDA);
+      writeInteger(uint16_t(n));
+    } else {
+      writeByte(0xDB);
+      writeInteger(uint32_t(n));
+    }
+    if(dynamic){
+      dynamic->writeRawTo(std::bind(&MsgPackSerializer::writeBytes, this,std::placeholders::_1,std::placeholders::_2));
+    }
+    return bytesWritten();
+  }
+
   size_t visitString(const char* value, size_t n) {
     ARDUINOJSON_ASSERT(value != NULL);
 

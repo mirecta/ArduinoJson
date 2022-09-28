@@ -5,6 +5,7 @@
 #pragma once
 
 #include <stddef.h>  // size_t
+#include <functional>
 
 #include <ArduinoJson/Collection/CollectionData.hpp>
 #include <ArduinoJson/Numbers/Float.hpp>
@@ -40,6 +41,21 @@ enum {
   OWNED_KEY_BIT = 0x80
 };
 
+class DynamicData {
+ public:
+  typedef std::function<void(const char* s, size_t n)> WriteJsonFunc;
+  typedef std::function<void(const uint8_t* s, size_t n)> WriteRawFunc;
+
+  virtual void writeJsonTo(WriteJsonFunc writeFunc) = 0;
+  virtual void writeRawTo(WriteRawFunc writeFunc) {}
+  virtual size_t sizeJson() {
+    return 0;
+  }
+  virtual size_t sizeRaw() {
+    return 0;
+  }
+};
+
 struct RawData {
   const char* data;
   size_t size;
@@ -51,6 +67,7 @@ union VariantContent {
   UInt asUnsignedInteger;
   Integer asSignedInteger;
   CollectionData asCollection;
+  DynamicData* asDynamic;
   struct {
     const char* data;
     size_t size;

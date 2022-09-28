@@ -10,5 +10,24 @@
   },
   "C_Cpp.default.includePath": [
     "/src"
-  ]
+  ],
+  "files.associations": {
+    "atomic": "cpp",
+    "*.tcc": "cpp",
+    "memory_resource": "cpp",
+    "istream": "cpp",
+    "streambuf": "cpp",
+    "system_error": "cpp",
+    "tuple": "cpp",
+    "mutex": "cpp",
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp",
+    "ranges": "cpp",
+    "compare": "cpp",
+    "functional": "cpp",
+    "ostream": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp"
+  }
 }

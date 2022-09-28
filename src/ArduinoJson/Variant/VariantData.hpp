@@ -73,6 +73,9 @@ class VariantData {
       case VALUE_IS_BOOLEAN:
         return visitor.visitBoolean(_content.asBoolean != 0);
 
+      case VALUE_IS_DYNAMIC:
+        return visitor.visitDynamic(_content.asDynamic);
+
       default:
         return visitor.visitNull();
     }
@@ -170,6 +173,11 @@ class VariantData {
   void setBoolean(bool value) {
     setType(VALUE_IS_BOOLEAN);
     _content.asBoolean = value;
+  }
+
+  void setDynamic(DynamicData* dynamic){
+    setType(VALUE_IS_DYNAMIC);
+    _content.asDynamic = dynamic;
   }
 
   void setFloat(Float value) {

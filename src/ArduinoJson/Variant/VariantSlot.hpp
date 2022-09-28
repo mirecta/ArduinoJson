@@ -21,7 +21,7 @@ class VariantSlot {
   uint8_t _flags;
   VariantSlotDiff _next;
   const char* _key;
-
+  
  public:
   // Must be a POD!
   // - no constructor

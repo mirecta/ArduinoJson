@@ -37,7 +37,6 @@
 #include "ArduinoJson/Variant/ConverterImpl.hpp"
 #include "ArduinoJson/Variant/VariantCompare.hpp"
 #include "ArduinoJson/Variant/VariantImpl.hpp"
-#include "ArduinoJson/Misc/Dynamic.hpp"
 
 #include "ArduinoJson/Json/JsonDeserializer.hpp"
 #include "ArduinoJson/Json/JsonSerializer.hpp"
@@ -73,7 +72,7 @@ using ARDUINOJSON_NAMESPACE::serializeJson;
 using ARDUINOJSON_NAMESPACE::serializeJsonPretty;
 using ARDUINOJSON_NAMESPACE::serializeMsgPack;
 using ARDUINOJSON_NAMESPACE::StaticJsonDocument;
-using ARDUINOJSON_NAMESPACE::Dynamic;
+using ARDUINOJSON_NAMESPACE::DynamicData;
 
 namespace DeserializationOption {
 using ARDUINOJSON_NAMESPACE::Filter;

@@ -49,6 +49,10 @@ struct Visitor {
   TResult visitString(const char*, size_t) {
     return TResult();
   }
+
+  TResult visitDynamic(DynamicData *dynamic) {
+    return TResult();
+  }
 };
 
 }  // namespace ARDUINOJSON_NAMESPACE

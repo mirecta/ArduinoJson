@@ -6,6 +6,7 @@
 
 #include <stdint.h>
 #include <string.h>  // for strlen
+#include <functional>
 
 #include <ArduinoJson/Json/EscapeSequence.hpp>
 #include <ArduinoJson/Numbers/FloatParts.hpp>
@@ -139,6 +140,20 @@ class TextFormatter {
 
     // and dump it in the right order
     writeRaw(begin, end);
+  }
+  
+  void writeDynamic(DynamicData* dynamic) {
+    writeRaw('\"');
+    if (dynamic) {
+      dynamic->writeJsonTo(std::bind(&TextFormatter<TWriter>::writeRawFunc, this,std::placeholders::_1,std::placeholders::_2));
+    } else {
+      writeRaw("null");
+    }
+    writeRaw('\"');
+  }
+
+  void writeRawFunc(const char* s, size_t n){
+    _writer.write(reinterpret_cast<const uint8_t*>(s), n);
   }
 
   void writeRaw(const char* s) {
