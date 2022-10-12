@@ -151,17 +151,17 @@ struct Converter<String> : private VariantAttorney {
   }
 };
 
-template <typename T>
-struct Converter<T, typename enable_if<is_base_of<DynamicData, T>::value>::type>
+template <>
+struct Converter<DynamicData*>
     : private VariantAttorney {
-  static void toJson(T src, VariantRef dst) {
+  static void toJson(DynamicData *src, VariantRef dst) {
     VariantData* data = getData(dst);
     if (data){
-      data->setDynamic(&src);
+      data->setDynamic(src);
     }
   }
 
-  T* fromJson(VariantConstRef src) {
+  DynamicData* fromJson(VariantConstRef src) {
     return 0;
   }
 
